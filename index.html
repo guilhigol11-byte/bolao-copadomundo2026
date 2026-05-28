@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Bolão 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <style>
+        body { font-family: sans-serif; margin: 0; background: #f4f7f6; padding-bottom: 120px; }
+        .btn-menu { font-size: 30px; cursor: pointer; padding: 15px; color: #1a5e20; position: fixed; top: 0; left: 0; z-index: 100; }
+        #menu-lateral { height: 100%; width: 0; position: fixed; top: 0; left: 0; background: #1a5e20; overflow-x: hidden; transition: 0.3s; padding-top: 60px; z-index: 200; }
+        #menu-lateral a { padding: 15px 20px; text-decoration: none; font-size: 18px; color: white; display: block; cursor: pointer; }
+        #menu-lateral a:hover { background: #114015; }
+        .container { max-width: 600px; margin: auto; padding: 60px 20px 20px 20px; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .pagination { text-align: center; padding: 15px; background: #fff; border-top: 2px solid #ddd; position: fixed; bottom: 0; width: 100%; left: 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; z-index: 50; }
+        .pagination a { padding: 5px 8px; color: #1a5e20; font-weight: bold; text-decoration: none; cursor: pointer; font-size: 13px; border: 1px solid #1a5e20; border-radius: 4px; }
+        .match-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .team-box { display: flex; align-items: center; width: 120px; font-size: 0.9em; font-weight: bold; }
+        .flag-icon { margin-right: 8px; font-size: 1.2em; }
+        .score-input { width: 40px; text-align: center; font-size: 1.2em; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-save { width: 100%; padding: 15px; background: #1a5e20; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="btn-menu" onclick="abrirMenu()">☰</div>
+    <div id="menu-lateral">
+        <a onclick="mostrar(1)">Rodada 1</a><a onclick="mostrar(2)">Rodada 2</a><a onclick="mostrar(3)">Rodada 3</a>
+        <a onclick="mostrar(4)">16 Avos</a><a onclick="mostrar(5)">Oitavas</a><a onclick="mostrar(6)">Quartas</a>
+        <a onclick="mostrar(7)">Semi-final</a><a onclick="mostrar(8)">Final</a><a onclick="mostrar(9)">Ranking</a>
+    </div>
+
+    <div class="container">
+        <div id="page-1" class="page active"><h1>Rodada 1</h1><div id="lista-r1"></div></div>
+        <div id="page-2" class="page"><h1>Rodada 2</h1><div id="lista-r2"></div></div>
+        <div id="page-3" class="page"><h1>Rodada 3</h1></div>
+        <div id="page-9" class="page"><h1>Ranking</h1></div>
+    </div>
+
+    <div class="pagination">
+        <a onclick="mostrar(1)">R1</a><a onclick="mostrar(2)">R2</a><a onclick="mostrar(3)">R3</a>
+        <a onclick="mostrar(4)">16av</a><a onclick="mostrar(5)">Oit</a><a onclick="mostrar(6)">Qua</a>
+        <a onclick="mostrar(7)">Semi</a><a onclick="mostrar(8)">Final</a><a onclick="mostrar(9)">Rank</a>
+    </div>
+
+    <script type="module">
+        const jogosR1 = [
+            { id: "j1", timeA: "México", codA: "mx", timeB: "Áf. do Sul", codB: "za", info: "11/06 - 16:00" },
+            { id: "j2", timeA: "Coreia do Sul", codA: "kr", timeB: "Rep. Tcheca", codB: "cz", info: "11/06 - 23:00" },
+            { id: "j3", timeA: "Canadá", codA: "ca", timeB: "Bósnia", codB: "ba", info: "12/06 - 16:00" },
+            { id: "j4", timeA: "EUA", codA: "us", timeB: "Paraguai", codB: "py", info: "12/06 - 22:00" },
+            { id: "j5", timeA: "Catar", codA: "qa", timeB: "Suíça", codB: "ch", info: "13/06 - 16:00" },
+            { id: "j6", timeA: "Brasil", codA: "br", timeB: "Marrocos", codB: "ma", info: "13/06 - 19:00" },
+            { id: "j7", timeA: "Haiti", codA: "ht", timeB: "Escócia", codB: "gb-sct", info: "13/06 - 22:00" },
+            { id: "j8", timeA: "Austrália", codA: "au", timeB: "Turquia", codB: "tr", info: "14/06 - 01:00" },
+            { id: "j9", timeA: "Alemanha", codA: "de", timeB: "Curaçao", codB: "cw", info: "14/06 - 14:00" },
+            { id: "j10", timeA: "Holanda", codA: "nl", timeB: "Japão", codB: "jp", info: "14/06 - 17:00" },
+            { id: "j11", timeA: "C. Marfim", codA: "ci", timeB: "Equador", codB: "ec", info: "14/06 - 20:00" },
+            { id: "j12", timeA: "Suécia", codA: "se", timeB: "Tunísia", codB: "tn", info: "14/06 - 23:00" },
+            { id: "j13", timeA: "Espanha", codA: "es", timeB: "Cabo Verde", codB: "cv", info: "15/06 - 13:00" },
+            { id: "j14", timeA: "Bélgica", codA: "be", timeB: "Egito", codB: "eg", info: "15/06 - 16:00" },
+            { id: "j15", timeA: "Arábia Saudita", codA: "sa", timeB: "Uruguai", codB: "uy", info: "15/06 - 19:00" },
+            { id: "j16", timeA: "Irã", codA: "ir", timeB: "Nova Zelândia", codB: "nz", info: "15/06 - 22:00" },
+            { id: "j17", timeA: "França", codA: "fr", timeB: "Senegal", codB: "sn", info: "16/06 - 16:00" },
+            { id: "j18", timeA: "Iraque", codA: "iq", timeB: "Noruega", codB: "no", info: "16/06 - 19:00" },
+            { id: "j19", timeA: "Argentina", codA: "ar", timeB: "Argélia", codB: "dz", info: "16/06 - 22:00" },
+            { id: "j20", timeA: "Áustria", codA: "at", timeB: "Jordânia", codB: "jo", info: "17/06 - 01:00" },
+            { id: "j21", timeA: "Portugal", codA: "pt", timeB: "RD Congo", codB: "cd", info: "17/06 - 14:00" },
+            { id: "j22", timeA: "Inglaterra", codA: "gb-eng", timeB: "Croácia", codB: "hr", info: "17/06 - 17:00" },
+            { id: "j23", timeA: "Gana", codA: "gh", timeB: "Panamá", codB: "pa", info: "17/06 - 20:00" },
+            { id: "j24", timeA: "Uzbequistão", codA: "uz", timeB: "Colômbia", codB: "co", info: "17/06 - 23:00" }
+        ];
+
+        const jogosR2 = [
+            { id: "j25", timeA: "Rep. Tcheca", codA: "cz", timeB: "Áf. do Sul", codB: "za", info: "18/06 - 13:00" },
+            { id: "j26", timeA: "Suíça", codA: "ch", timeB: "Bósnia", codB: "ba", info: "18/06 - 16:00" },
+            { id: "j27", timeA: "Canadá", codA: "ca", timeB: "Catar", codB: "qa", info: "18/06 - 19:00" },
+            { id: "j28", timeA: "México", codA: "mx", timeB: "Coreia do Sul", codB: "kr", info: "18/06 - 22:00" },
+            { id: "j29", timeA: "EUA", codA: "us", timeB: "Austrália", codB: "au", info: "19/06 - 16:00" },
+            { id: "j30", timeA: "Escócia", codA: "gb-sct", timeB: "Marrocos", codB: "ma", info: "19/06 - 19:00" },
+            { id: "j31", timeA: "Brasil", codA: "br", timeB: "Haiti", codB: "ht", info: "19/06 - 21:30" },
+            { id: "j32", timeA: "Turquia", codA: "tr", timeB: "Paraguai", codB: "py", info: "19/06 - 23:59" },
+            { id: "j33", timeA: "Holanda", codA: "nl", timeB: "Suécia", codB: "se", info: "20/06 - 14:00" },
+            { id: "j34", timeA: "Alemanha", codA: "de", timeB: "C. Marfim", codB: "ci", info: "20/06 - 17:00" },
+            { id: "j35", timeA: "Equador", codA: "ec", timeB: "Curaçao", codB: "cw", info: "20/06 - 21:00" },
+            { id: "j36", timeA: "Tunísia", codA: "tn", timeB: "Japão", codB: "jp", info: "21/06 - 01:00" },
+            { id: "j37", timeA: "Espanha", codA: "es", timeB: "Arábia Saudita", codB: "sa", info: "21/06 - 13:00" },
+            { id: "j38", timeA: "Bélgica", codA: "be", timeB: "Irã", codB: "ir", info: "21/06 - 16:00" },
+            { id: "j39", timeA: "Uruguai", codA: "uy", timeB: "Cabo Verde", codB: "cv", info: "21/06 - 19:00" },
+            { id: "j40", timeA: "Nova Zelândia", codA: "nz", timeB: "Egito", codB: "eg", info: "21/06 - 22:00" }
+        ];
+
+        window.abrirMenu = () => document.getElementById("menu-lateral").style.width = "250px";
+        window.mostrar = (num) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + num).classList.add('active');
+            document.getElementById("menu-lateral").style.width = "0";
+            window.scrollTo(0, 0);
+        };
+
+        function renderizar(lista, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = "";
+            lista.forEach(j => {
+                container.innerHTML += `
+                    <div class="match-card">
+                        <div class="team-box"><span class="flag-icon flag-icon-${j.codA}"></span>${j.timeA}</div>
+                        <input type="number" class="score-input"> x <input type="number" class="score-input">
+                        <div class="team-box" style="justify-content: flex-end;">${j.timeB}<span class="flag-icon flag-icon-${j.codB}" style="margin-left:8px;"></span></div>
+                    </div>
+                    <div style="text-align:center; font-size:0.85em; color:#1a5e20; font-weight:bold; margin-bottom:15px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">📅 ${j.info}</div>
+                `;
+            });
+        }
+        renderizar(jogosR1, 'lista-r1');
+        renderizar(jogosR2, 'lista-r2');
+    </script>
+</body>
+</html>
