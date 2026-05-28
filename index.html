@@ -20,6 +20,7 @@
         .flag-icon { margin-right: 8px; font-size: 1.2em; }
         .score-input { width: 40px; text-align: center; font-size: 1.2em; border: 1px solid #ccc; border-radius: 4px; }
         .btn-save { width: 100%; padding: 15px; background: #1a5e20; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .msg-vazio { text-align: center; color: #666; font-style: italic; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -34,7 +35,12 @@
     <div class="container">
         <div id="page-1" class="page active"><h1>Rodada 1</h1><div id="lista-r1"></div></div>
         <div id="page-2" class="page"><h1>Rodada 2</h1><div id="lista-r2"></div></div>
-        <div id="page-3" class="page"><h1>Rodada 3</h1></div>
+        <div id="page-3" class="page"><h1>Rodada 3</h1><div id="lista-r3"></div></div>
+        <div id="page-4" class="page"><h1>16 Avos</h1><div id="lista-r4" class="msg-vazio">Aguardando definição dos classificados...</div></div>
+        <div id="page-5" class="page"><h1>Oitavas</h1><div id="lista-r5" class="msg-vazio">Aguardando definição dos classificados...</div></div>
+        <div id="page-6" class="page"><h1>Quartas</h1><div id="lista-r6" class="msg-vazio">Aguardando definição dos classificados...</div></div>
+        <div id="page-7" class="page"><h1>Semi-final</h1><div id="lista-r7" class="msg-vazio">Aguardando definição dos classificados...</div></div>
+        <div id="page-8" class="page"><h1>Final</h1><div id="lista-r8" class="msg-vazio">Aguardando definição dos classificados...</div></div>
         <div id="page-9" class="page"><h1>Ranking</h1></div>
     </div>
 
@@ -91,6 +97,33 @@
             { id: "j40", timeA: "Nova Zelândia", codA: "nz", timeB: "Egito", codB: "eg", info: "21/06 - 22:00" }
         ];
 
+        const jogosR3 = [
+            { id: "j41", timeA: "Suíça", codA: "ch", timeB: "Canadá", codB: "ca", info: "24/06 - 16:00" },
+            { id: "j42", timeA: "Bósnia", codA: "ba", timeB: "Catar", codB: "qa", info: "24/06 - 16:00" },
+            { id: "j43", timeA: "Brasil", codA: "br", timeB: "Escócia", codB: "gb-sct", info: "24/06 - 19:00" },
+            { id: "j44", timeA: "Haiti", codA: "ht", timeB: "Marrocos", codB: "ma", info: "24/06 - 19:00" },
+            { id: "j45", timeA: "Rep. Tcheca", codA: "cz", timeB: "México", codB: "mx", info: "24/06 - 22:00" },
+            { id: "j46", timeA: "Áf. do Sul", codA: "za", timeB: "Coreia do Sul", codB: "kr", info: "24/06 - 22:00" },
+            { id: "j47", timeA: "Alemanha", codA: "de", timeB: "Equador", codB: "ec", info: "25/06 - 16:00" },
+            { id: "j48", timeA: "Curaçao", codA: "cw", timeB: "Costa do Marfim", codB: "ci", info: "25/06 - 16:00" },
+            { id: "j49", timeA: "Holanda", codA: "nl", timeB: "Tunísia", codB: "tn", info: "25/06 - 20:00" },
+            { id: "j50", timeA: "Japão", codA: "jp", timeB: "Suécia", codB: "se", info: "25/06 - 20:00" },
+            { id: "j51", timeA: "França", codA: "fr", timeB: "Iraque", codB: "iq", info: "26/06 - 18:00" },
+            { id: "j52", timeA: "Senegal", codA: "sn", timeB: "Noruega", codB: "no", info: "26/06 - 18:00" },
+            { id: "j53", timeA: "Argentina", codA: "ar", timeB: "Áustria", codB: "at", info: "26/06 - 21:00" },
+            { id: "j54", timeA: "Argélia", codA: "dz", timeB: "Jordânia", codB: "jo", info: "26/06 - 21:00" },
+            { id: "j55", timeA: "Portugal", codA: "pt", timeB: "Colômbia", codB: "co", info: "27/06 - 17:00" },
+            { id: "j56", timeA: "RD Congo", codA: "cd", timeB: "Uzbequistão", codB: "uz", info: "27/06 - 17:00" },
+            { id: "j57", timeA: "Inglaterra", codA: "gb-eng", timeB: "Panamá", codB: "pa", info: "27/06 - 20:00" },
+            { id: "j58", timeA: "Croácia", codA: "hr", timeB: "Gana", codB: "gh", info: "27/06 - 20:00" },
+            { id: "j59", timeA: "Bélgica", codA: "be", timeB: "Nova Zelândia", codB: "nz", info: "27/06 - 23:00" },
+            { id: "j60", timeA: "Egito", codA: "eg", timeB: "Irã", codB: "ir", info: "27/06 - 23:00" },
+            { id: "j61", timeA: "Espanha", codA: "es", timeB: "Uruguai", codB: "uy", info: "27/06 - 23:00" },
+            { id: "j62", timeA: "Cabo Verde", codA: "cv", timeB: "Arábia Saudita", codB: "sa", info: "27/06 - 23:00" },
+            { id: "j63", timeA: "Estados Unidos", codA: "us", timeB: "Turquia", codB: "tr", info: "28/06 - 02:00" },
+            { id: "j64", timeA: "Paraguai", codA: "py", timeB: "Austrália", codB: "au", info: "28/06 - 02:00" }
+        ];
+
         window.abrirMenu = () => document.getElementById("menu-lateral").style.width = "250px";
         window.mostrar = (num) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -101,6 +134,7 @@
 
         function renderizar(lista, containerId) {
             const container = document.getElementById(containerId);
+            if (lista.length === 0) return; // Mantém a mensagem padrão do HTML
             container.innerHTML = "";
             lista.forEach(j => {
                 container.innerHTML += `
@@ -115,6 +149,7 @@
         }
         renderizar(jogosR1, 'lista-r1');
         renderizar(jogosR2, 'lista-r2');
+        renderizar(jogosR3, 'lista-r3');
     </script>
 </body>
 </html>
